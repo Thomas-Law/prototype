@@ -8,6 +8,8 @@ public class Token {
 	private String token_type;
 	private String issued_at;
 	private String signature;
+	private String scope;
+	private String id_token;
 	
 	public String getAccess_token() {
 		return access_token;
@@ -44,6 +46,18 @@ public class Token {
 	}
 	public void setSignature(String signature) {
 		this.signature = signature;
+	}
+	public String getScope() {
+		return scope;
+	}
+	public void setScope(String scope) {
+		this.scope = scope;
+	}
+	public String getId_token() {
+		return id_token;
+	}
+	public void setId_token(String id_token) {
+		this.id_token = id_token;
 	}
 	
 }
