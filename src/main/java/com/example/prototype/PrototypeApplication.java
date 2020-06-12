@@ -11,10 +11,16 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
+// @EnableConfigurationProperties(DataSourceConfig.class)
 public class PrototypeApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PrototypeApplication.class, args);
+		/*
+		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+		ctx.register(DataSourceConfig.class);
+		ctx.refresh();
+		*/
 	}
 	
 	@Bean
