@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.prototype.mapper.PrototypeMapper">
+    
+    <select id="getTest" resultType="string">
+    	SELECT Fulfillment_State__c FROM salesforce.Ruby_Order_Item__c WHERE sfid = 'a0B2x000000QiKSEA0';
+    </select>
+    
+    <update id="updateOrderLineItem">
+    	UPDATE salesforce.Ruby_Order_Item__c SET Fulfillment_State__c = #{orderLineItem.fulfillmentState}, Payment_State__c = #{orderLineItem.paymentState} WHERE sfid = #{orderLineItemId};
+    </update>
+    
+    <resultMap id="resultOrderLineItem" type="OrderLineItem">
+    	<result property="fulfillmentState" column="Fulfillment_State__c"/>
+    	<result property="paymentState" column="Payment_State__c"/>
+    </resultMap>
+    
+    <select id="getOrderLineItem" resultMap="resultOrderLineItem">
+    	SELECT Fulfillment_State__c, Payment_State__c FROM salesforce.Ruby_Order_Item__c WHERE sfid = #{orderLineItemId};
+    </select>
+	
+</mapper>

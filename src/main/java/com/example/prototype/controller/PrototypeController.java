@@ -41,7 +41,7 @@ import org.springframework.web.client.RestTemplate;
 import com.example.prototype.model.OrderLineItem;
 import com.example.prototype.model.Product;
 import com.example.prototype.model.Token;
-import com.example.prototype.service.DataSourceService;
+import com.example.prototype.service.PrototypeDataService;
 
 @CrossOrigin
 @RestController
@@ -49,15 +49,45 @@ public class PrototypeController {
 	
 	private Logger logger = LogManager.getLogger();
 	
+	// @Autowired
+	// private DataSourceService dataSourceService;
+	
 	@Autowired
-	private DataSourceService dataSourceService;
+	private PrototypeDataService prototypeDataService;
+	
+//	@GetMapping(value = "/test")
+//	public String getTest() throws Exception {
+//		return prototypeDataService.getTest();
+//	}
 	
 	@PutMapping(value = "/order-line-item/{orderLineItemId}")
 	public OrderLineItem updateOrderLineItem(
 			@PathVariable String orderLineItemId, 
 			@RequestBody OrderLineItem orderLineItem) {
 		
+		OrderLineItem resultOrderLineItem = null;
+		
+		try {
+			prototypeDataService.updateOrderLineItem(orderLineItemId, orderLineItem);
+			resultOrderLineItem = prototypeDataService.getOrderLineItem(orderLineItemId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return resultOrderLineItem;
+		
+	}
+	
+	
+	/*
+	@PutMapping(value = "/order-line-item/{orderLineItemId}")
+	public OrderLineItem updateOrderLineItem(
+			@PathVariable String orderLineItemId, 
+			@RequestBody OrderLineItem orderLineItem) {
+		
 		String fulfillmentState = orderLineItem.getFulfillmentState();
+		String paymentState = orderLineItem.getPaymentState();
 		
 		try {
 			URI dbUri = new URI(dataSourceService.getDbUrl());
@@ -74,6 +104,7 @@ public class PrototypeController {
 					"begin;" +
 					"set transaction read write;" + 
 					"UPDATE salesforce.Ruby_Order_Item__c SET Fulfillment_State__c = '" + fulfillmentState + "' WHERE sfid = '" + orderLineItemId + "';" +
+					"UPDATE salesforce.Ruby_Order_Item__c SET Payment_State__c = '" + paymentState + "' WHERE sfid = '" + orderLineItemId + "';" +
 					"commit;";
 			stmt.executeUpdate(sql);
 		} catch (URISyntaxException | SQLException e) {
@@ -82,6 +113,7 @@ public class PrototypeController {
 		}		
 		return orderLineItem;
 	}
+	*/
 	
 	/*
 	@PostMapping(value = "/order-line-item")
@@ -91,25 +123,26 @@ public class PrototypeController {
 	}
 	*/
 
+	/*
 	@GetMapping(value = "/db")
 	public String db() {
 		
 		String result = null;
 		
-		/*try (Connection connection = dataSourceService.dataSource().getConnection()) {
-			Statement stmt = connection.createStatement();
-			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-			stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-			ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
-
-			ArrayList<String> output = new ArrayList<String>();
-			while (rs.next()) {
-				output.add("Read from DB: " + rs.getTimestamp("tick"));
-			}
-			return "db";
-		} catch (Exception e) {
-			return e.toString();
-		}*/
+//		try (Connection connection = dataSourceService.dataSource().getConnection()) {
+//			Statement stmt = connection.createStatement();
+//			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
+//			stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
+//			ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
+//
+//			ArrayList<String> output = new ArrayList<String>();
+//			while (rs.next()) {
+//				output.add("Read from DB: " + rs.getTimestamp("tick"));
+//			}
+//			return "db";
+//		} catch (Exception e) {
+//			return e.toString();
+//		}
 		
 		// postgres://kjctmxxlfahqoa:ca4cd3c7617788c65164696ab918e41e7ebebfc6bcd0797d166638aa117128e0@ec2-35-169-254-43.compute-1.amazonaws.com:5432/d587lfufmabkpp
 		
@@ -142,7 +175,7 @@ public class PrototypeController {
 		return result;		
 		
 	}
-	
+	*/
 	
 	@GetMapping(value = "/token")
 	public Token getToken(
@@ -177,6 +210,7 @@ public class PrototypeController {
 		
 	}
 	
+	/*
 	@GetMapping(value = "/product")
 	public Product getProduct(
 			@RequestParam(required = true) String productId,
@@ -199,6 +233,7 @@ public class PrototypeController {
 		return productResponseEntity.getBody();
 		
 	}
+	*/
 	
 	/*
 	@GetMapping(value = "/product")
