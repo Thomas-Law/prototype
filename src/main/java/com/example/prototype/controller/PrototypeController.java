@@ -188,7 +188,7 @@ public class PrototypeController {
 		 
 		RestTemplate restTemplate = new RestTemplate(clientHttpReq);
 		
-		String tokenUrl = "https://login.salesforce.com/services/oauth2/token";
+		String tokenUrl = "https://hktruby--pgcom.my.salesforce.com/services/oauth2/token";
 		
 		HttpHeaders tokenHeaders = new HttpHeaders();
 		
@@ -196,8 +196,8 @@ public class PrototypeController {
 		tokenMap.add("grant_type", "authorization_code");
 		// tokenMap.add("code", "aPrx9pB8PA1X2QMcNNiey19tRfhWcrmkfGVj.zyw.aTHwxBN_sj5p40UaI95StGx72ozyNsJvQ==");
 		tokenMap.add("code", tokenCode);
-		tokenMap.add("client_id", "3MVG97quAmFZJfVwJgZbh1OWH_UDBxCz58VScNtq..AL9S3RzFfa1JtcvWp6m6MxEY2CuH9Rvea3qRWjwq2Zd");
-		tokenMap.add("client_secret", "D7275AB547E4B25FCE59F680734A786A702D9D8AA9B44C212B12826CCCE61874");
+		tokenMap.add("client_id", "3MVG9N6eDmZRVJOmuXjVFuURAA_sGhNkDxOUog5QAyaS0W.j9l6xu48MajgDMRWN2EYMjcEs4TFKy_8wp3zDF");
+		tokenMap.add("client_secret", "1808F26DEC90AA522806E3F3639BBFACD808E9F0AE4C5E85BDC6F9E7240B3CB3");
 		tokenMap.add("redirect_uri", tokenRedirectUrl);
 
 		HttpEntity<MultiValueMap<String, String>> tokenHttpentity = new HttpEntity<MultiValueMap<String, String>>(tokenMap, tokenHeaders);
